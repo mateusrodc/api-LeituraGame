@@ -40,7 +40,7 @@ module.exports= {
                 return res.status(400).json({ error: "Autor já existente" });
             }
         }
-        const autor_update = await Autor.update(req.body,{where: {id: id}});
+        await Autor.update(req.body,{where: {id: id}});
         
         return res.json({
             message: "Atualizado com sucesso"
@@ -52,7 +52,7 @@ module.exports= {
         if(!autor){
             return res.status(400).json({ error: "Registro de autor inexistente" });
         }
-        const del = await Autor.destroy({where:{id:id}});
+        await Autor.destroy({where:{id:id}});
         return res.json({
             message: "Excluído com sucesso"
         });

@@ -45,7 +45,7 @@ module.exports= {
                 return res.status(400).json({ error: "Título já existente" });
             }
         }
-        const livro_update = await Livro.update(req.body,{where: {id: id}});
+        await Livro.update(req.body,{where: {id: id}});
             
         
         return res.json({

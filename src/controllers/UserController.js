@@ -18,9 +18,15 @@ module.exports = {
 
     try{
 
-      const existeapelido = await User.findOne({where: {apelido}});
+      if(apelido === "" || usuario === "" || email === "" || senha === "" || pontos === ""){
+        return res.status(400).json({ error: "Campos em branco!" });
+      }
 
-      if(existeapelido){
+      const existeEmail = await User.findOne({where: {email}});
+      const existeApelido = await User.findOne({where: {apelido}});
+      const existeUsuario = await User.findOne({where: {usuario}});
+
+      if(existeEmail || existeApelido || existeUsuario){
 
         return res.status(400).json({ error: "Usuário já existente!" });
       }
@@ -43,6 +49,9 @@ module.exports = {
     try{
 
       const { apelido, senha } = req.body;
+      if(apelido === "" || senha === ""){
+          return res.status(400).json({ error: "Preencha os campos" });
+      }
       const user = await User.findOne({where: {apelido}});
 
       if (!user) {
@@ -53,7 +62,7 @@ module.exports = {
         return res.status(400).json({ error: "Invalid password" });
       }
   
-      return res.json({
+      return res.status(200).json({
         apelido: user.apelido,
         token: tokenjwt.generateToken(user)
       });
@@ -90,7 +99,7 @@ module.exports = {
         return res.status(400).json({ error: "E-mail já existente" });
       }
     }
-    const autor_update = await Usuario.update(req.body,{where: {id: id}});
+    await Usuario.update(req.body,{where: {id: id}});
         
     return res.status(200).json({
         message: "Atualizado com sucesso"

@@ -80,8 +80,8 @@ module.exports= {
         const calcPagTotal = Math.sqrt(pagTotal);
 
         const resultado = pontoTotal * (calcPagLidas/calcPagTotal);
-        console.log(resultado);
-        const leitura_atualizada = await Leitura.update({
+        
+        await Leitura.update({
             "usuario_id": leitura.usuario_id,
             "livro_id": leitura.livro_id,
             "paginas_lidas": paginas_lidas,

@@ -63,7 +63,7 @@ module.exports= {
         if(!solicitacao){
             return res.status(400).json({ error: "Registro não existente" });
         }
-        const novaSolicitacao = await Solicitacao.update({
+        await Solicitacao.update({
             "titulo": solicitacao.titulo,
             "autor": solicitacao.autor,
             "usuario_id": solicitacao.usuario_id,
