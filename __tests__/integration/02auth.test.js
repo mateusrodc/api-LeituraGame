@@ -2,6 +2,7 @@ const request = require('supertest');
 const app = require('../../src/app');
 
 describe('Autenticacao', () => {
+
     
     it('usuario deve se autenticar com credenciais válidas', async() => {
         
@@ -68,5 +69,18 @@ describe('Autenticacao', () => {
             senha: "churros123"
         })
         expect(response.body.token).toBeTruthy()
-    })
+    });
+    
+    it('usuario nao deve se autenticar sem nenhum dado na requisicao', async()=> {
+        const response = await request(app).post('/authenticate')
+        expect(response.status).toBe(400)
+    });
+
+    it('usuario nao deve se autenticar sem informar a senha', async()=> {
+        const response = await request(app).post('/authenticate').send({
+            apelido: "bitela"
+        })
+        expect(response.status).toBe(400)
+    });
+
 });

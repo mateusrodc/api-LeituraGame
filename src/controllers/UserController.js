@@ -9,9 +9,8 @@ module.exports = {
     const users = await User.findAll({
       attributes: ['id','apelido']
     });
-    return res.json(users);
+    return res.status(200).json(users);
   },
-
   async store(req, res) {     //cadastrar usuário
 
     const { apelido, usuario, email, senha, pontos } = req.body;
@@ -71,8 +70,7 @@ module.exports = {
 
         console.log(err);
         return res.status(400).json({ error: "User authentication failed" });
-    }
-    
+    }  
   },
   async update(req,res){
     const {id} = req.params;
